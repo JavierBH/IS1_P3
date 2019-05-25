@@ -1,0 +1,20 @@
+Parte 1
+
+En la primera parte se usa el comando "osmconvert spain-latest.osm -B=CiudadMadrid.poly -o=Madrid.osm" para crear el fichero .osm
+que contiene toda la información de la comunidad de Madrid.
+
+La base de datos contien 5 tablas de datos, en las que se almacenan los datos relativos a los restaurantes, bares, cafes, 
+trenes y autobuses. Y tiene los siguientes elementos:
+
+- Id: Es el identificador de cada uno de los elementos (Clave Primaria)
+- long: Es el valor de longitud del elemento
+- lat: Es la latitud del elemento
+- amenity: Es el tipo de establecimiento (solo se aplica en establicimientos)
+- name: Es el nombre de el elemento.
+
+La creacion de la base de datos se efectua mediante el siguiente comando: 
+
+osmconvert fichero.osm --all-to-nodes --csv="@id @lon @lat name" --csv-separator=, --csv-headline |  grep ".*,.*,.*,." | python3 csv-to-sql.py bus_stations
+
+Redericcionando la salida hacia un script de python (csv-to-sql.py) y filtrando las entradas sin nombre mediante el comando grep.
+
